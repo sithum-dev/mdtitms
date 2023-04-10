@@ -1,0 +1,46 @@
+[
+    {
+        "id": "tag-1",
+        "name": "New user"
+    },
+    {
+        "id": "tag-2",
+        "name": "New workout plan"
+    },
+    {
+        "id": "tag-3",
+        "name": "New diet"
+    },
+    {
+        "id": "tag-4",
+        "name": "Image reminder"
+    },
+    {
+        "id": "tag-5",
+        "name": "Sun"
+    },
+    {
+        "id": "tag-6",
+        "name": "Mon"
+    },
+    {
+        "id": "tag-7",
+        "name": "Tue"
+    },
+    {
+        "id": "tag-8",
+        "name": "Wed"
+    },
+    {
+        "id": "tag-9",
+        "name": "Thu"
+    },
+    {
+        "id": "tag-10",
+        "name": "Fri"
+    },
+    {
+        "id": "tag-11",
+        "name": "Sat"
+    }
+]

@@ -1,0 +1,22 @@
+[
+    {
+        "id": "status_1",
+        "name": "All"
+    },
+    {
+        "id": "status_2",
+        "name": "On going"
+    },
+    {
+        "id": "status_3",
+        "name": "Paused"
+    },
+    {
+        "id": "status_4",
+        "name": "Completed"
+    },
+    {
+        "id": "status_5",
+        "name": "Cancelled"
+    }
+]

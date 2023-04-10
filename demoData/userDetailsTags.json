@@ -1,0 +1,62 @@
+[
+    {
+        "id": "user-tag-1",
+        "name": "New user"
+    },
+    {
+        "id": "user-tag-2",
+        "name": "New workout plan"
+    },
+    {
+        "id": "user-tag-3",
+        "name": "New diet"
+    },
+    {
+        "id": "user-tag-4",
+        "name": "Image reminder"
+    },
+    {
+        "id": "user-tag-5",
+        "name": "Sun"
+    },
+    {
+        "id": "user-tag-6",
+        "name": "Mon"
+    },
+    {
+        "id": "user-tag-7",
+        "name": "Tue"
+    },
+    {
+        "id": "user-tag-8",
+        "name": "Wed"
+    },
+    {
+        "id": "user-tag-9",
+        "name": "Thu"
+    },
+    {
+        "id": "user-tag-10",
+        "name": "Fri"
+    },
+    {
+        "id": "user-tag-11",
+        "name": "Sat"
+    },
+    {
+        "id": "user-tag-12",
+        "name": "On going"
+    },
+    {
+        "id": "user-tag-13",
+        "name": "Paused"
+    },
+    {
+        "id": "user-tag-14",
+        "name": "Completed"
+    },
+    {
+        "id": "user-tag-15",
+        "name": "Cancelled"
+    }
+]
