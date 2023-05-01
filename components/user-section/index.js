@@ -1,4 +1,3 @@
-import ChatBox from "./ChatBox";
 import UserSelectBar from "./UserSelectBar";
 
 function index() {

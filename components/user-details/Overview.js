@@ -49,65 +49,6 @@ function Overview() {
     progress: undefined,
   };
 
-  const handleTags = (e) => {
-    setSelectedTags({ ...selectedTags, [e.target.value]: e.target.checked });
-    setTagUpdate(true);
-  };
-
-  useEffect(async () => {
-    if (selectedTags) {
-      // Selected tags into array
-      var keys = Object.keys(selectedTags);
-
-      var filtered = keys.filter(function (key) {
-        return selectedTags[key];
-      });
-
-      if (filtered.length > 0) {
-        setSelectedTagsArry(filtered);
-      } else {
-        setSelectedTagsArry(null);
-      }
-    }
-  }, [selectedTags]);
-
-  useEffect(async () => {
-    if (tagUpdate) {
-      let cancel;
-      await axios({
-        method: "POST",
-        url: "/api/tags",
-        params: { uid: userGet.userid },
-        data: { tagsList: selectedTagsArry },
-        cancelToken: new axios.CancelToken((c) => (cancel = c)),
-      })
-        .then((res) => {})
-        .catch((e) => {
-          if (axios.isCancel(e)) return;
-        });
-      return () => cancel();
-    } else {
-      return tagUpdate;
-    }
-  }, [selectedTagsArry]);
-
-  useEffect(async () => {
-    await axios({
-      method: "GET",
-      url: "/api/tags",
-      params: { type: "User Related" },
-    })
-      .then((res) => {
-        document
-          .querySelectorAll("input[type=checkbox]")
-          .forEach((el) => (el.checked = false));
-        setTags(res.data.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [userLoading]);
-
   useEffect(async () => {
     if (userGet) {
       // get user data bt id
@@ -127,70 +68,6 @@ function Overview() {
       return userGet;
     }
   }, [userGet]);
-
-  useEffect(async () => {
-    if (userGet) {
-      // get user subscription data by user _id
-      let subId;
-      await axios({
-        method: "GET",
-        url: "/api/subscriptions/getSubscriptionByUserId",
-        params: { uid: userGet.userid },
-      })
-        .then((res) => {
-          setSubscriptionData(res.data.data);
-          if (res.data.data.subscription != null) {
-            subId = res.data.data.subscription._id;
-          }
-          setSubLoading(false);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-
-      setSubscriptionLogsData(null);
-      if (subId) {
-        //Get subscription Logs By SubID
-        await axios({
-          method: "GET",
-          url: "/api/subscriptions/getSubscriptionLogsById",
-          params: { id: subId },
-        })
-          .then((res) => {
-            setSubscriptionLogsData(res.data.data);
-            setSubLoading(false);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      }
-    } else {
-      return userGet;
-    }
-  }, [userGet, isSubDataUpdate]);
-
-  const updateBankSlipStatus = async (id, status) => {
-    await axios({
-      method: "POST",
-      url: "/api/subscriptions/updateSubscriptionLogDetails",
-      params: {
-        subId: subscriptionData.subscription._id,
-        logId: id,
-        status: status,
-      },
-    })
-      .then((res) => {
-        setIsSubDataUpdate(isSubDataUpdate ? null : true);
-        toast.success(
-          "BankSlip status updated successfully!",
-          notificationsSettings
-        );
-        setShowModal(false);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
 
   return (
     <div>
@@ -239,53 +116,7 @@ function Overview() {
         ) : (
           <div
             className={`${subscriptionStatusColor} mx-2 my-2 rounded-lg w-40`}
-          >
-            {/* <div className="text-xs text-center pt-2">Subscription Status</div>
-
-            <div className="text-center bg-gradient-dark mx-4 py-1 rounded-lg text-white mt-1 mb-2">
-              <p className="font-bold text-md">
-                {subLoading ? (
-                  <Skeleton width={50} />
-                ) : (
-                  (() => {
-                    if (
-                      subscriptionData != null &&
-                      subscriptionData.subscription != null
-                    ) {
-                      const today = dayjs(
-                        subscriptionData?.subscription.expiryDate
-                      );
-                      return today.diff(Date.now(), "day") + 1;
-                    } else {
-                      return 0;
-                    }
-                  })()
-                )}
-              </p>
-              <p className="text-sm">Days Left</p>
-              <p className="text-sm">
-                ({" "}
-                {subLoading ? (
-                  <Skeleton width={50} />
-                ) : (
-                  (() => {
-                    if (
-                      subscriptionData != null &&
-                      subscriptionData.subscription != null
-                    ) {
-                      const today = dayjs(
-                        subscriptionData?.subscription.expiryDate
-                      );
-                      return today.diff(Date.now(), "week") + 1;
-                    } else {
-                      return 0;
-                    }
-                  })()
-                )}{" "}
-                Weeks )
-              </p>
-            </div> */}
-          </div>
+          ></div>
         )}
       </div>
       <div className="additional-user-details">
@@ -335,47 +166,6 @@ function Overview() {
                   />
                 </div>
                 {/*footer*/}
-                {showModalButtons && (
-                  <div className="flex items-center justify-between px-6 py-3 border-t border-solid border-blueGray-200 rounded-b bg-gray-300">
-                    <div>
-                      <button
-                        className="bg-white px-4 py-2 rounded-md"
-                        onClick={() =>
-                          updateBankSlipStatus(
-                            selectedBankslipData.logId,
-                            "Resubmit"
-                          )
-                        }
-                      >
-                        Resubmit
-                      </button>
-                    </div>
-                    <div className="flex gap-2">
-                      <button
-                        className="bg-white px-4 py-2 rounded-md"
-                        onClick={() =>
-                          updateBankSlipStatus(
-                            selectedBankslipData.logId,
-                            "Declined"
-                          )
-                        }
-                      >
-                        Decline
-                      </button>
-                      <button
-                        className="bg-gradient-dark text-white px-4 py-2 rounded-md"
-                        onClick={() =>
-                          updateBankSlipStatus(
-                            selectedBankslipData.logId,
-                            "Successful"
-                          )
-                        }
-                      >
-                        Successful
-                      </button>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>

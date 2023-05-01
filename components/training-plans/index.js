@@ -2,7 +2,6 @@ import { ChevronRightIcon, SearchIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import { CashIcon, FolderAddIcon, UsersIcon } from "@heroicons/react/outline";
 import Earnings from "./content";
-import Subscriptions from "./subscription";
 
 function index() {
   const [activeSection, setActiveSection] = useState("earnings");
@@ -46,7 +45,7 @@ function index() {
         </div>
 
         <div className="col-span-3">
-          {activeSection == "earnings" ? <Earnings /> : <Subscriptions />}
+          {activeSection == "earnings" && <Earnings />}
         </div>
       </div>
     </div>

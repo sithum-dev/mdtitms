@@ -4,9 +4,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   CheckIcon,
-  ArrowPathIcon,
 } from "@heroicons/react/solid";
-import subscriptionStatus from "../../demoData/subscriptionFilters.json";
 import dayjs from "dayjs";
 import useUserSearch from "../../hooks/useUserSearch";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,8 +15,6 @@ import axios from "axios";
 function UserSelectBar() {
   const [query, setQuery] = useState("");
   const [pageNum, setPageNum] = useState(1);
-  const [tags, setTags] = useState(null);
-  const [selectedTags, setSelectedTags] = useState(null);
   const [tagfilter, setTagFilter] = useState(null);
   const [filterDropdown, setFilterDropdown] = useState(false);
   const [dateFilter, setDateFilter] = useState("Descending");
@@ -51,36 +47,6 @@ function UserSelectBar() {
   );
 
   useEffect(() => {
-    if (selectedTags) {
-      // Selected tags into array
-      var keys = Object.keys(selectedTags);
-
-      var filteredTags = keys.filter(function (key) {
-        return selectedTags[key];
-      });
-
-      if (filteredTags.length > 0) {
-        setTagFilter(filteredTags);
-      } else {
-        setTagFilter(null);
-      }
-    }
-  }, [selectedTags]);
-
-  useEffect(async () => {
-    await axios({
-      method: "GET",
-      url: "/api/tags",
-    })
-      .then((res) => {
-        setTags(res.data.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
-
-  useEffect(() => {
     if (!userGet && users[0]) {
       dispatch(
         setUser({
@@ -103,11 +69,6 @@ function UserSelectBar() {
         userName: name,
       })
     );
-  };
-
-  const handleTagsFilter = (e) => {
-    setSelectedTags({ ...selectedTags, [e.target.value]: e.target.checked });
-    setPageNum(1);
   };
 
   return (

@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import DataTable from "react-data-table-component";
-import EarningsChart from "../charts/EarningsChart";
 import Skeleton from "react-loading-skeleton";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
