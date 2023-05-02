@@ -2,7 +2,7 @@ const axios = require("axios");
 export default async (req, res) => {
   const response = await axios.post(
     process.env.NEXT_PUBLIC_API_URL +
-      "/users/search?pageSize=" +
+      "/offices/search?pageSize=" +
       req.query.pageSize +
       "&pageNo=" +
       req.query.pageNumber +

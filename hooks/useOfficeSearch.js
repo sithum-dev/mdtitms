@@ -1,17 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function useUserSearch(query, pageNumber, tags, dateFilter) {
+function useOfficeSearch(query, pageNumber) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [offices, setOffices] = useState([]);
   const [hasMore, setHasMore] = useState();
-  const [tagsList, setTagsList] = useState([]);
 
   useEffect(() => {
-    setUsers([]);
-    console.log(123);
-  }, [query, tags, dateFilter]);
+    setOffices([]);
+  }, [query]);
 
   useEffect(async () => {
     setLoading(true);
@@ -20,19 +18,19 @@ function useUserSearch(query, pageNumber, tags, dateFilter) {
 
     await axios({
       method: "POST",
-      url: "/api/users/getUsers",
+      url: "/api/offices/getOffices",
       params: { query: query, pageNumber: pageNumber, pageSize: 10 },
       cancelToken: new axios.CancelToken((c) => (cancel = c)),
     })
       .then((res) => {
         if (res.data.data.length > 0) {
-          setUsers((prevUsers) => {
+          setOffices((prevUsers) => {
             return [...new Set([...prevUsers, ...res.data.data])];
           });
           setHasMore(true);
         } else {
           setHasMore(false);
-          // setUsers([]);
+          // setOffices([]);
         }
         setLoading(false);
       })
@@ -42,14 +40,14 @@ function useUserSearch(query, pageNumber, tags, dateFilter) {
       });
 
     return () => cancel();
-  }, [query, pageNumber, tags, dateFilter]);
+  }, [query, pageNumber]);
 
   return {
     loading,
     error,
-    users,
+    offices,
     hasMore,
   };
 }
 
-export default useUserSearch;
+export default useOfficeSearch;

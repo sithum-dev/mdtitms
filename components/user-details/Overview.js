@@ -16,22 +16,7 @@ function Overview() {
 
   const [user, setUser] = useState(null);
   const [userLoading, setUserLoading] = useState(true);
-  const [subLoading, setSubLoading] = useState(true);
-  const [isSubDataUpdate, setIsSubDataUpdate] = useState(null);
-  const [tags, setTags] = useState(null);
-  const [selectedTags, setSelectedTags] = useState(null);
-  const [selectedTagsArry, setSelectedTagsArry] = useState(null);
-  const [tagUpdate, setTagUpdate] = useState(null);
-  const [remarks, setRemarks] = useState(false);
-  const [remarksEdit, setRemarksEdit] = useState(false);
-  const [subscriptionData, setSubscriptionData] = useState(null);
-  const [subscriptionLogsData, setSubscriptionLogsData] = useState(null);
-  const [subscriptionLogsDataLoading, setSubscriptionLogsDataLoading] =
-    useState(false);
-  const [subscriptionLogsDataError, setSubscriptionLogsDataError] =
-    useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [showModalButtons, setShowModalButtons] = useState(false);
   const [selectedBankslipData, setSelectedBankslipData] = useState(null);
   const [subscriptionStatusColor, setSubscriptionStatusColor] =
     useState("bg-[#ffff]");

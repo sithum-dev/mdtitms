@@ -19,7 +19,9 @@ function NavBar() {
         Offices
       </button>
       <button
-        className={`btn-c ${router.pathname == "/earnings" && "active-btn"}`}
+        className={`btn-c ${
+          router.pathname == "/trainingPlans" && "active-btn"
+        }`}
         onClick={() => router.push("/trainingPlans")}
       >
         Training Plans

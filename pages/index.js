@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import AOS from "aos";
 import { useEffect } from "react";
 import NavBar from "../components/NavBar";
-import UserSection from "../components/user-section";
+import OfficeSection from "../components/office-selection";
 import UserDetails from "../components/user-details";
 import { userAuth } from "../hooks/adminUserAuth";
 import { ToastContainer } from "react-toastify";
@@ -22,7 +22,7 @@ export default function Home() {
       <NavBar />
       <main className="grid grid-cols-1 md:grid-cols-3 gap-2">
         {/* User select & chat */}
-        <UserSection />
+        <OfficeSection />
         {/* User Details */}
         <UserDetails />
       </main>
