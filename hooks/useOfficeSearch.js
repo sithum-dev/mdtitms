@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function useOfficeSearch(query, pageNumber) {
+function useOfficeSearch(query, pageNumber, dataRelaod) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [offices, setOffices] = useState([]);
@@ -9,7 +9,7 @@ function useOfficeSearch(query, pageNumber) {
 
   useEffect(() => {
     setOffices([]);
-  }, [query]);
+  }, [query, dataRelaod]);
 
   useEffect(async () => {
     setLoading(true);
@@ -40,7 +40,7 @@ function useOfficeSearch(query, pageNumber) {
       });
 
     return () => cancel();
-  }, [query, pageNumber]);
+  }, [query, pageNumber, dataRelaod]);
 
   return {
     loading,

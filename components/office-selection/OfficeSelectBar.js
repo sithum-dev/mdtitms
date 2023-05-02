@@ -11,19 +11,25 @@ import { useSelector, useDispatch } from "react-redux";
 import { setOffice, selectOffice } from "../../redux/reducers/officeSlice";
 import Skeleton from "react-loading-skeleton";
 import axios from "axios";
+import { Plus } from "react-feather";
+import AddOfficeModal from "../office/addOfficeModal";
 
 function UserSelectBar() {
   const [query, setQuery] = useState("");
   const [pageNum, setPageNum] = useState(1);
-  const [filterDropdown, setFilterDropdown] = useState(false);
-  const [dateFilter, setDateFilter] = useState("Descending");
+  const [addNewOfficeModal, setAddNewOfficeModal] = useState(false);
+  const [dataRelaod, setDataRelaod] = useState(null);
 
   const observer = useRef();
 
   const officeGet = useSelector(selectOffice);
   const dispatch = useDispatch();
 
-  const { loading, error, offices, hasMore } = useOfficeSearch(query, pageNum);
+  const { loading, error, offices, hasMore } = useOfficeSearch(
+    query,
+    pageNum,
+    dataRelaod
+  );
 
   const lastUserElimentRef = useCallback(
     (node) => {
@@ -55,9 +61,7 @@ function UserSelectBar() {
     setPageNum(1);
   };
 
-  console.log(offices);
-
-  const selectNewOffice = (id, name) => {
+  const selectNewOffice = (id) => {
     dispatch(
       setOffice({
         officeid: id,
@@ -67,6 +71,17 @@ function UserSelectBar() {
 
   return (
     <div className="h-full bg-white rounded-lg md:rounded-l-none mx-2 md:mx-0 pl-6 px-4 py-8">
+      <div className="flex justify-end mb-3">
+        <button
+          className="flex justify-between items-center text-sm px-3 py-1 rounded-md bg-gradient-dark text-white"
+          onClick={() => {
+            setAddNewOfficeModal(true);
+          }}
+        >
+          Add New Office <Plus className="h-4" />
+        </button>
+      </div>
+
       {/* Search Box */}
       <div className="relative">
         <input
@@ -80,54 +95,10 @@ function UserSelectBar() {
       {/* Users Header */}
       <div className="mt-4">
         <div className="flex items-center gap-2">
-          <p>Officers</p>
+          <p>Offices</p>
           <div className="w-full h-[1px] bg-gray-400"></div>
-          {/* <div className="bg-gray-300 p-1 rounded-full cursor-pointer hover:bg-gray-500">
-            <ChevronDownIcon className="h-5" />
-          </div> */}
         </div>
-        {/* Subscriptin Filters */}
-        <div className="flex relative w-full justify-end">
-          <div
-            className="flex items-center text-sm px-4 cursor-pointer"
-            onClick={() => setFilterDropdown(filterDropdown ? false : true)}
-          >
-            Last Updated Date
-            <ChevronDownIcon className="h-6 w-6 text-gray-700" />
-          </div>
-          {filterDropdown && (
-            <div className="absolute z-50 top-7 right-5 text-sm bg-white shadow-2xl rounded-md border">
-              <div className="px-4 py-2">
-                <p className="text-gray-600 text-xs pb-2">ORDER</p>
-                <div className="flex flex-col gap-1">
-                  <span
-                    className="flex items-center gap-2 px-2 py-1 hover:bg-gray-300 rounded-sm cursor-pointer"
-                    onClick={() => setDateFilter("Ascending")}
-                  >
-                    <CheckIcon
-                      className={`h-4 w-4 text-green-600 ${
-                        dateFilter != "Ascending" && "opacity-0"
-                      }`}
-                    />{" "}
-                    Ascending
-                  </span>
-                  <span
-                    className="flex items-center gap-2 px-2 py-1 hover:bg-gray-300 rounded-sm cursor-pointer"
-                    onClick={() => setDateFilter("Descending")}
-                  >
-                    <CheckIcon
-                      className={`h-4 w-4 text-green-600 ${
-                        dateFilter != "Descending" && "opacity-0"
-                      }`}
-                    />{" "}
-                    Descending
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-        {/* Users */}
+        {/* Offices */}
         <div className="h-[400px] md:h-[500px] mt-4 px-3 overflow-y-auto">
           {offices.map((office, key) => {
             if (offices.length == key + 1) {
@@ -140,7 +111,7 @@ function UserSelectBar() {
                       ? "bg-gradient-dark text-white"
                       : "hover:scale-105 transition duration-300 ease-in-out"
                   }`}
-                  onClick={() => selectNewOffice(office._id, office.officeName)}
+                  onClick={() => selectNewOffice(office._id)}
                 >
                   <img
                     className="h-12 w-12 rounded-full"
@@ -164,27 +135,28 @@ function UserSelectBar() {
             } else {
               return (
                 <div
-                  key={user._id}
+                  key={office._id}
                   className={`flex gap-3 items-center relative shadow-md px-2 py-2 mt-2 rounded-lg cursor-pointer ${
-                    officeGet?.userid == user._id
+                    officeGet?.officeid == office._id
                       ? "bg-gradient-dark text-white"
                       : "hover:scale-105 transition duration-300 ease-in-out"
                   }`}
-                  onClick={() => selectNewOffice(user._id, user.name)}
+                  onClick={() => selectNewOffice(office._id)}
                 >
                   <img
                     className="h-12 w-12 rounded-full"
                     src={
-                      user.profileImageUrl
-                        ? user.profileImageUrl
+                      office.profileImageUrl
+                        ? office.profileImageUrl
                         : "/images/man.png"
                     }
                     alt="profile image"
                   />
                   <div>
-                    <p className="text-sm">{user.name}</p>
+                    <p className="text-sm">{office.officeName}</p>
                     <p className="text-xs">
-                      Last updated {dayjs(user.updatedAt).format("YYYY/MM/DD")}
+                      Last updated{" "}
+                      {dayjs(office.updatedAt).format("YYYY/MM/DD")}
                     </p>
                   </div>
                   <ChevronRightIcon className="h-5 absolute right-1" />
@@ -211,6 +183,14 @@ function UserSelectBar() {
           )}
         </div>
       </div>
+      {/* Modal Add New */}
+      {addNewOfficeModal ? (
+        <AddOfficeModal
+          setAddNewOfficeModal={setAddNewOfficeModal}
+          setDataRelaod={setDataRelaod}
+          dataRelaod={dataRelaod}
+        />
+      ) : null}
     </div>
   );
 }
