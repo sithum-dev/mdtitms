@@ -61,11 +61,11 @@
   }
 
   .main-user-details .user-details {
-    @apply grid grid-cols-3 gap-y-1 text-white text-sm px-3 py-3;
+    @apply grid grid-cols-4 gap-y-1 text-white text-sm px-3 py-3;
   }
 
   .main-user-details .user-details label {
-    @apply col-span-2;
+    @apply col-span-3;
   }
 
   .additional-user-details {

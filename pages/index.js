@@ -4,7 +4,7 @@ import AOS from "aos";
 import { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import OfficeSection from "../components/office-selection";
-import UserDetails from "../components/user-details";
+import UserDetails from "../components/dashboard";
 import { userAuth } from "../hooks/adminUserAuth";
 import { ToastContainer } from "react-toastify";
 

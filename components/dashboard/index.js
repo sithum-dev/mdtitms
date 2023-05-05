@@ -3,6 +3,7 @@ import Overview from "./Overview";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../redux/reducers/userSlice";
 import axios from "axios";
+import EditOfficeDetails from "../office/EditOfficeDetails";
 
 function index() {
   const userGet = useSelector(selectUser);
@@ -86,7 +87,7 @@ function index() {
                 href="#link3"
                 role="tablist"
               >
-                User Settings
+                Edit Office Details
               </a>
             </li>
           </ul>
@@ -100,10 +101,7 @@ function index() {
                   {/* <ProgerssReport /> */}
                 </div>
                 <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                  {/* <MealPlan /> */}
-                </div>
-                <div className={openTab === 4 ? "block" : "hidden"} id="link4">
-                  {/* <WorkoutPlan /> */}
+                  <EditOfficeDetails />
                 </div>
               </div>
             </div>
