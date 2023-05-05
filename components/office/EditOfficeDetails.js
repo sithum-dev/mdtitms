@@ -56,6 +56,8 @@ const EditOfficeDetails = () => {
       .then((res) => {
         if (res.data.data) {
           userNameRef.current.value = res.data.data.username;
+        } else {
+          userNameRef.current.value = "";
         }
       })
       .catch((e) => {
