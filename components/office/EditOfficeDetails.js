@@ -109,6 +109,7 @@ const EditOfficeDetails = () => {
       username: userNameRef.current.value,
       password: passwordRef.current.value,
       officeId: officeGet.officeid,
+      role: "branch",
     };
 
     await axios({

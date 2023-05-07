@@ -6,9 +6,9 @@ import {
   CheckIcon,
 } from "@heroicons/react/solid";
 import dayjs from "dayjs";
-import useUserSearch from "../../hooks/useUserSearch";
+import useUserSearch from "../../../hooks/useUserSearch";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser, selectUser } from "../../redux/reducers/userSlice";
+import { setUser, selectUser } from "../../../redux/reducers/userSlice";
 import Skeleton from "react-loading-skeleton";
 import axios from "axios";
 
@@ -72,13 +72,13 @@ function UserSelectBar() {
   };
 
   return (
-    <div className="h-full bg-white rounded-lg md:rounded-l-none mx-2 md:mx-0 pl-6 px-4 py-8">
+    <div className="h-full bg-white rounded-lg md:rounded-l-none mx-2 md:mx-0 px-4 py-8">
       {/* Search Box */}
       <div className="relative">
         <input
           className="bg-gray-300 opacity-90 outline-none rounded-2xl w-full h-8 px-3 text-sm"
           type="text"
-          placeholder="Search people here"
+          placeholder="Search officers here"
           onChange={handleSearch}
         />
         <SearchIcon className="absolute h-6 top-1 right-2 text-gray-500" />
@@ -92,47 +92,7 @@ function UserSelectBar() {
             <ChevronDownIcon className="h-5" />
           </div> */}
         </div>
-        {/* Subscriptin Filters */}
-        <div className="flex relative w-full justify-end">
-          <div
-            className="flex items-center text-sm px-4 cursor-pointer"
-            onClick={() => setFilterDropdown(filterDropdown ? false : true)}
-          >
-            Last Updated Date
-            <ChevronDownIcon className="h-6 w-6 text-gray-700" />
-          </div>
-          {filterDropdown && (
-            <div className="absolute z-50 top-7 right-5 text-sm bg-white shadow-2xl rounded-md border">
-              <div className="px-4 py-2">
-                <p className="text-gray-600 text-xs pb-2">ORDER</p>
-                <div className="flex flex-col gap-1">
-                  <span
-                    className="flex items-center gap-2 px-2 py-1 hover:bg-gray-300 rounded-sm cursor-pointer"
-                    onClick={() => setDateFilter("Ascending")}
-                  >
-                    <CheckIcon
-                      className={`h-4 w-4 text-green-600 ${
-                        dateFilter != "Ascending" && "opacity-0"
-                      }`}
-                    />{" "}
-                    Ascending
-                  </span>
-                  <span
-                    className="flex items-center gap-2 px-2 py-1 hover:bg-gray-300 rounded-sm cursor-pointer"
-                    onClick={() => setDateFilter("Descending")}
-                  >
-                    <CheckIcon
-                      className={`h-4 w-4 text-green-600 ${
-                        dateFilter != "Descending" && "opacity-0"
-                      }`}
-                    />{" "}
-                    Descending
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+
         {/* Users */}
         <div className="h-[400px] md:h-[500px] mt-4 px-3 overflow-y-auto">
           {users.map((user, key) => {

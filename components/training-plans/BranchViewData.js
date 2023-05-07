@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import DataTable from "react-data-table-component";
-import EarningsChart from "../charts/EarningsChart";
 import Skeleton from "react-loading-skeleton";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
@@ -264,8 +263,8 @@ const Content = () => {
                   <div className="bg-gray-200 px-2 py-2 rounded-md">
                     {parse(planData?.content)}
                   </div>
-                  <div className="px-1 mt-4 py-2 grid grid-cols-3 gap-2">
-                    <p>
+                  <div className="px-1 mt-4 py-2 grid grid-cols-3 gap-5">
+                    <p className="col-span-2">
                       Name :{" "}
                       <span className="font-semibold">
                         {planData?.planName}

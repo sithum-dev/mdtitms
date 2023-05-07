@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/dist/client/router";
 import { useRef, useState } from "react";
+import { setCookie } from "nookies";
 
 function Login() {
   const router = useRouter();
@@ -28,13 +29,15 @@ function Login() {
 
     const res = await response.json();
 
-    console.log(res);
-
     setLoading(false);
 
     if (res.login === true) {
       if (res.data.user.role == "branch") {
-        router.push("/branchView");
+        setCookie(null, "loginOfficeId", res.data.user.officeId._id, {
+          maxAge: 30 * 24 * 60 * 60,
+          path: "/",
+        });
+        router.push("/dashboard/office");
       } else {
         router.push("/");
       }
