@@ -3,8 +3,8 @@ import Header from "../components/Header";
 import AOS from "aos";
 import { useEffect } from "react";
 import NavBar from "../components/NavBar";
-import OfficeSection from "../components/office-selection";
-import UserDetails from "../components/dashboard";
+import OfficeSection from "../components/office/office-selection";
+import UserDetails from "../components/office/dashboard";
 import { userAuth } from "../hooks/adminUserAuth";
 import { ToastContainer } from "react-toastify";
 

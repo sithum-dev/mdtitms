@@ -70,7 +70,7 @@ function index() {
                 href="#link4"
                 role="tablist"
               >
-                Assigned Programs
+                Office Stats
               </a>
             </li>
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">

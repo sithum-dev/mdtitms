@@ -1,7 +1,7 @@
 import { ChevronRightIcon, SearchIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import { FolderIcon, UsersIcon } from "@heroicons/react/outline";
-import Programs from "../../training-plans/BranchViewData";
+import Programs from "../../training-plans/office/BranchViewData";
 import Users from "../../users/user-section";
 
 function index() {
