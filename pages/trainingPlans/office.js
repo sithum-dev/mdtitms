@@ -1,14 +1,10 @@
 import Head from "next/head";
 import Header from "../../components/Header";
-import AOS from "aos";
-import { useEffect } from "react";
 import NavBar from "../../components/NavBar";
-import UsersSection from "../../components/users/user-section";
-import UserDetails from "../../components/users/dashboard";
-import { userAuth } from "../../hooks/adminUserAuth";
+import MainContent from "../../components/training-plans/office";
 import { ToastContainer } from "react-toastify";
 
-export default function Office() {
+function Office() {
   return (
     <div className="flex flex-col min-h-screen font-rubik">
       <Head>
@@ -20,16 +16,16 @@ export default function Office() {
       <Header />
       {/* Nav Bar */}
       <NavBar />
-      <main className="grid grid-cols-1 md:grid-cols-3 gap-2">
-        {/* User select & chat */}
-        <UsersSection />
-        {/* User Details */}
-        <UserDetails />
+
+      <main>
+        <MainContent />
       </main>
       <ToastContainer />
     </div>
   );
 }
+
+export default Office;
 
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;

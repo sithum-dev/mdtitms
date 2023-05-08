@@ -122,7 +122,9 @@ function UserSelectBar() {
                     alt="profile image"
                   />
                   <div>
-                    <p className="text-sm">{user.initialsName}</p>
+                    <p className="text-sm">
+                      {user.initials} {user.lastName}
+                    </p>
                     <p className="text-xs">
                       Last updated {dayjs(user.updatedAt).format("YYYY/MM/DD")}
                     </p>
@@ -151,7 +153,9 @@ function UserSelectBar() {
                     alt="profile image"
                   />
                   <div>
-                    <p className="text-sm">{user.initialsName}</p>
+                    <p className="text-sm">
+                      {user.initials} {user.lastName}
+                    </p>
                     <p className="text-xs">
                       Last updated {dayjs(user.updatedAt).format("YYYY/MM/DD")}
                     </p>
