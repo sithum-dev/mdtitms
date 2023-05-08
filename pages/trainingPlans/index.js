@@ -1,7 +1,7 @@
 import Head from "next/head";
-import Header from "../components/Header";
-import NavBar from "../components/NavBar";
-import MainContent from "../components/training-plans";
+import Header from "../../components/Header";
+import NavBar from "../../components/NavBar";
+import MainContent from "../../components/training-plans";
 import { ToastContainer } from "react-toastify";
 
 function Earnings() {

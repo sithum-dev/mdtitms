@@ -10,26 +10,20 @@ import useUserSearch from "../../../hooks/useUserSearch";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser, selectUser } from "../../../redux/reducers/userSlice";
 import Skeleton from "react-loading-skeleton";
-import axios from "axios";
+import { Plus } from "react-feather";
+import AddOfficerModal from "../AddOfficerModal";
 
 function UserSelectBar() {
   const [query, setQuery] = useState("");
   const [pageNum, setPageNum] = useState(1);
-  const [tagfilter, setTagFilter] = useState(null);
-  const [filterDropdown, setFilterDropdown] = useState(false);
-  const [dateFilter, setDateFilter] = useState("Descending");
+  const [addNewOfficerModal, setAddNewOfficerModal] = useState(false);
 
   const observer = useRef();
 
   const userGet = useSelector(selectUser);
   const dispatch = useDispatch();
 
-  const { loading, error, users, hasMore } = useUserSearch(
-    query,
-    pageNum,
-    tagfilter,
-    dateFilter
-  );
+  const { loading, error, users, hasMore } = useUserSearch(query, pageNum);
 
   const lastUserElimentRef = useCallback(
     (node) => {
@@ -73,6 +67,16 @@ function UserSelectBar() {
 
   return (
     <div className="h-full bg-white rounded-lg md:rounded-l-none mx-2 md:mx-0 px-4 py-8">
+      <div className="flex justify-end mb-3">
+        <button
+          className="flex justify-between items-center text-sm px-3 py-1 rounded-md bg-gradient-dark text-white"
+          onClick={() => {
+            setAddNewOfficerModal(true);
+          }}
+        >
+          Add New Officer <Plus className="h-4" />
+        </button>
+      </div>
       {/* Search Box */}
       <div className="relative">
         <input
@@ -118,7 +122,7 @@ function UserSelectBar() {
                     alt="profile image"
                   />
                   <div>
-                    <p className="text-sm">{user.name}</p>
+                    <p className="text-sm">{user.initialsName}</p>
                     <p className="text-xs">
                       Last updated {dayjs(user.updatedAt).format("YYYY/MM/DD")}
                     </p>
@@ -147,7 +151,7 @@ function UserSelectBar() {
                     alt="profile image"
                   />
                   <div>
-                    <p className="text-sm">{user.name}</p>
+                    <p className="text-sm">{user.initialsName}</p>
                     <p className="text-xs">
                       Last updated {dayjs(user.updatedAt).format("YYYY/MM/DD")}
                     </p>
@@ -176,6 +180,14 @@ function UserSelectBar() {
           )}
         </div>
       </div>
+      {/* Modal Add New */}
+      {addNewOfficerModal ? (
+        <AddOfficerModal
+          setAddNewOfficeModal={setAddNewOfficerModal}
+          // setDataRelaod={setDataRelaod}
+          // dataRelaod={dataRelaod}
+        />
+      ) : null}
     </div>
   );
 }

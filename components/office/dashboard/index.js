@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Overview from "./Overview";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser } from "../../redux/reducers/userSlice";
+import { selectUser } from "../../../redux/reducers/userSlice";
 import axios from "axios";
-import EditOfficeDetails from "../office/EditOfficeDetails";
+import EditOfficeDetails from "../../office/EditOfficeDetails";
 
 function index() {
   const userGet = useSelector(selectUser);

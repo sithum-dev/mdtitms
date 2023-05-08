@@ -37,8 +37,16 @@ function Login() {
           maxAge: 30 * 24 * 60 * 60,
           path: "/",
         });
+        setCookie(null, "userRole", res.data.user.role, {
+          maxAge: 30 * 24 * 60 * 60,
+          path: "/",
+        });
         router.push("/dashboard/office");
       } else {
+        setCookie(null, "userRole", "admin", {
+          maxAge: 30 * 24 * 60 * 60,
+          path: "/",
+        });
         router.push("/");
       }
     } else {

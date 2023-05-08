@@ -7,7 +7,9 @@ export default async (req, res) => {
       "&pageNo=" +
       req.query.pageNumber +
       "&query=" +
-      req.query.query
+      req.query.query +
+      "&officeId=" +
+      req.query.officeId
   );
 
   res.status(200).json(response.data);

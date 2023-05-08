@@ -6,13 +6,13 @@ import {
   CheckIcon,
 } from "@heroicons/react/solid";
 import dayjs from "dayjs";
-import useOfficeSearch from "../../hooks/useOfficeSearch";
+import useOfficeSearch from "../../../hooks/useOfficeSearch";
 import { useSelector, useDispatch } from "react-redux";
-import { setOffice, selectOffice } from "../../redux/reducers/officeSlice";
+import { setOffice, selectOffice } from "../../../redux/reducers/officeSlice";
 import Skeleton from "react-loading-skeleton";
 import axios from "axios";
 import { Plus } from "react-feather";
-import AddOfficeModal from "../office/addOfficeModal";
+import AddOfficeModal from "../addOfficeModal";
 
 function UserSelectBar() {
   const [query, setQuery] = useState("");

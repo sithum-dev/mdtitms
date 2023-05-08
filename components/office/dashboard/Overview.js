@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectOffice } from "../../redux/reducers/officeSlice";
+import { selectOffice } from "../../../redux/reducers/officeSlice";
 import axios from "axios";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Skeleton from "react-loading-skeleton";
-import GetUserData from "../../hooks/getOfficeDataById";
+import GetUserData from "../../../hooks/getOfficeDataById";
 
 function Overview() {
   dayjs.extend(relativeTime);

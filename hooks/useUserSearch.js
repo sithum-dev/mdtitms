@@ -1,7 +1,10 @@
 import axios from "axios";
+import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 
 function useUserSearch(query, pageNumber, tags, dateFilter) {
+  const cookies = parseCookies();
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [users, setUsers] = useState([]);
@@ -21,7 +24,12 @@ function useUserSearch(query, pageNumber, tags, dateFilter) {
     await axios({
       method: "POST",
       url: "/api/users/getUsers",
-      params: { query: query, pageNumber: pageNumber, pageSize: 10 },
+      params: {
+        query: query,
+        pageNumber: pageNumber,
+        pageSize: 10,
+        officeId: cookies.loginOfficeId,
+      },
       cancelToken: new axios.CancelToken((c) => (cancel = c)),
     })
       .then((res) => {
