@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import UserDetails from "./UserDetails";
 import EditUserDetails from "../../users/EditUserDetails";
+import TrainingPlans from "../../users/dashboard/TrainingPlans";
 
 function index() {
   const [openTab, setOpenTab] = useState(1);
@@ -34,20 +35,18 @@ function index() {
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
               <a
                 className={
-                  "text-xs md:text-sm px-1 md:px-3 py-3 shadow-lg rounded-lg block leading-normal" +
-                  (openTab === 4
-                    ? "text-white bg-gradient-dark"
-                    : "text-" + color + "-600 bg-white")
+                  "text-xs md:text-sm px-1 md:px-3 py-3 shadow-lg rounded-lg block leading-normal " +
+                  (openTab === 2 ? "text-white bg-gradient-dark" : "bg-white")
                 }
                 onClick={(e) => {
                   e.preventDefault();
-                  setOpenTab(4);
+                  setOpenTab(2);
                 }}
                 data-toggle="tab"
                 href="#link4"
                 role="tablist"
               >
-                Assigned Programs
+                Assigned Plans
               </a>
             </li>
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -75,7 +74,7 @@ function index() {
                   <UserDetails />
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  {/* <ProgerssReport /> */}
+                  <TrainingPlans />
                 </div>
                 <div className={openTab === 3 ? "block" : "hidden"} id="link3">
                   <EditUserDetails />

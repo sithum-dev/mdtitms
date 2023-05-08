@@ -78,7 +78,7 @@ function UserSelectBar() {
             setAddNewOfficeModal(true);
           }}
         >
-          Add New Office <Plus className="h-4" />
+          <Plus className="h-4" /> Add New Office
         </button>
       </div>
 

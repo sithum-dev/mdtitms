@@ -74,7 +74,7 @@ function UserSelectBar() {
             setAddNewOfficerModal(true);
           }}
         >
-          Add New Officer <Plus className="h-4" />
+          <Plus className="h-4" /> Add New Officer
         </button>
       </div>
       {/* Search Box */}
