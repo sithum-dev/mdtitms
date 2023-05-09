@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import parse from "html-react-parser";
 
 import "suneditor/dist/css/suneditor.min.css"; // Import Sun Editor's CSS File
+import ViewAssignedUsers from "./office/ViewAssignedUsers";
+import axios from "axios";
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
   ssr: false,
@@ -33,6 +35,8 @@ const Content = () => {
   const [loading, setLoading] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
+  const [showModalUserData, setShowModalUserData] = useState(false);
+  const [planUsersDetails, setPlanUsersDetails] = useState(false);
 
   const [dataLoad, setDataLoad] = useState(null);
 
@@ -80,14 +84,22 @@ const Content = () => {
     {
       name: "Action",
       selector: (row) => (
-        <div
-          onClick={() => viewTrainingPlan(row._id)}
-          className="bg-gradient-dark px-3 py-2 rounded-md text-white cursor-pointer"
-        >
-          View
+        <div className="flex gap-2">
+          <div
+            onClick={() => viewTrainingPlan(row._id)}
+            className="bg-gradient-dark px-3 py-2 rounded-md text-white cursor-pointer"
+          >
+            View
+          </div>
+          <div
+            onClick={() => viewTrainingPlanUsersData(row._id)}
+            className="bg-gradient-dark px-3 py-2 rounded-md text-white cursor-pointer"
+          >
+            Assigned ({row.numOfUsers})
+          </div>
         </div>
       ),
-      width: "10%",
+      width: "18%",
     },
   ];
 
@@ -103,6 +115,33 @@ const Content = () => {
     setPlanData(res.data);
 
     setShowModal(true);
+  };
+
+  const viewTrainingPlanUsersData = async (id) => {
+    let data = [];
+    await axios({
+      method: "GET",
+      url: "/api/trainingPlans/userDatabyId",
+      params: { id: id },
+    })
+      .then((res) => {
+        data = res.data.data;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+    const groupBy = (array) => {
+      return array.reduce((result, currentValue) => {
+        (result[currentValue.office._id] =
+          result[currentValue.office._id] || []).push(currentValue);
+        return result;
+      }, {});
+    };
+
+    const groupData = groupBy(data);
+    setPlanUsersDetails(groupData);
+    setShowModalUserData(true);
   };
 
   const buttonList = [
@@ -396,6 +435,14 @@ const Content = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
+
+      {/* User Details Modal */}
+      {showModalUserData && (
+        <ViewAssignedUsers
+          planUsersDetails={planUsersDetails}
+          setShowModalUserData={setShowModalUserData}
+        />
+      )}
     </>
   );
 };

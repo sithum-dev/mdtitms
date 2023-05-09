@@ -209,6 +209,24 @@
   border-radius: 0.625rem 0 0 0.625rem;
 }
 
+.user-table {
+  border-spacing: 0 15px;
+}
+
+.user-table tr {
+  border-radius: 20px;
+}
+
+.user-table tr td:nth-child(n + 5),
+.user-table tr th:nth-child(n + 5) {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+.user-table tr td:nth-child(1),
+.user-table tr th:nth-child(1) {
+  border-radius: 0.625rem 0 0 0.625rem;
+}
+
 /* Save Template checkbox */
 
 .custom-checkbox input[type="checkbox"] + label span {
