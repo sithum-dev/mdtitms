@@ -223,7 +223,7 @@ const EditOfficeDetails = () => {
       </form>
       <hr className="w-full h-[2px] bg-gray-700 my-5" />
       <div>
-        <h1 className="text-gray-700 font-semibold">Branch Login Management</h1>
+        <h1 className="text-gray-700 font-semibold">Office Login Management</h1>
         <form onSubmit={onSubmitEdit}>
           <div className="my-4 px-7 grid grid-cols-3">
             <div className="form-col">

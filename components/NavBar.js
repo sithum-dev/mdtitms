@@ -28,7 +28,7 @@ function NavBar() {
             }`}
             onClick={() => router.push("/trainingPlans")}
           >
-            Training Plans
+            Training Plan
           </button>
         </>
       )}
@@ -48,7 +48,7 @@ function NavBar() {
             }`}
             onClick={() => router.push("/trainingPlans/office")}
           >
-            Training Plans
+            Training Plan
           </button>
         </>
       )}

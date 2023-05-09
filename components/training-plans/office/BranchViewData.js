@@ -225,7 +225,7 @@ const Content = () => {
     <>
       <div className="bg-white rounded-md mx-2 px-2 py-3">
         {/* Data Table */}
-        <div className="mx-4 text-2xl mt-3">All Training Plans</div>
+        <div className="mx-4 text-2xl mt-3">Training Programs</div>
         <div className="my-6">
           <DataTable
             columns={columns}
