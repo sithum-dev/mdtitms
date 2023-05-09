@@ -7,13 +7,16 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import Skeleton from "react-loading-skeleton";
 import { Plus } from "react-feather";
 import parse from "html-react-parser";
+import AssignPlan from "../../training-plans/user/AssignPlan";
 
 function TrainingPlans() {
   const userGet = useSelector(selectUser);
   dayjs.extend(relativeTime);
   const [plansLoading, setPlansLoading] = useState(false);
+  const [isPlansUpdate, setPlansUpdate] = useState(null);
   const [plansData, setPlansData] = useState(null);
   const [plansViewData, setPlanViewData] = useState(null);
+  const [assignPlansState, setAssignPlansState] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(async () => {
@@ -35,7 +38,7 @@ function TrainingPlans() {
     } else {
       return userGet;
     }
-  }, [userGet]);
+  }, [userGet, isPlansUpdate]);
 
   const viewTrainingPlan = async (id) => {
     const response = await fetch("/api/trainingPlans/" + id, {
@@ -53,64 +56,75 @@ function TrainingPlans() {
 
   return (
     <div>
-      <div className="main-container">
-        <div className="header my-2">
-          <div className="title">
-            <div className="header-circle"></div>Training Plans
+      {assignPlansState ? (
+        <AssignPlan
+          viewTrainingPlan={viewTrainingPlan}
+          setAssignPlansState={setAssignPlansState}
+          plansData={plansData}
+          isPlansUpdate={isPlansUpdate}
+          setPlansUpdate={setPlansUpdate}
+        />
+      ) : (
+        <div className="main-container">
+          <div className="header my-2">
+            <div className="title">
+              <div className="header-circle"></div>Training Plans
+            </div>
+            <button
+              className="flex justify-between items-center text-sm px-3 py-1 rounded-md bg-gradient-dark text-white"
+              onClick={() => {
+                setAssignPlansState(true);
+              }}
+            >
+              <Plus className="h-4" /> Assign New Training Plan
+            </button>
           </div>
-          <button
-            className="flex justify-between items-center text-sm px-3 py-1 rounded-md bg-gradient-dark text-white"
-            onClick={() => {
-              // setAddNewOfficerModal(true);
-            }}
-          >
-            <Plus className="h-4" /> Assign New Training Plan
-          </button>
+          {plansLoading ? (
+            <Skeleton count={2} height={30} />
+          ) : (
+            <div className="overflow-x-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-w-2 scrolling-touch">
+              <table className="payment-table text-gray-400 border-separate space-y-3 text-xs w-full">
+                <thead className="bg-gradient-dark text-white">
+                  <tr>
+                    <th className="p-3 text-left">#</th>
+                    <th className="p-3 text-left">Code</th>
+                    <th className="p-3 text-left">Name</th>
+                    <th className="p-3 text-left">Start Date</th>
+                    <th className="p-3 text-left">End Date</th>
+                    <th className="p-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {plansData?.map((plan, key) => {
+                    return (
+                      <tr className="bg-white lg:text-black" key={key + 1}>
+                        <td className="p-3">{key + 1}</td>
+                        <td className="p-3">{plan.planCode}</td>
+                        <td className="p-3">{plan.planName}</td>
+                        <td className="p-3">
+                          {dayjs(plan.startDate).format("YYYY/MM/DD")}
+                        </td>
+                        <td className="p-3">
+                          {dayjs(plan.endDate).format("YYYY/MM/DD")}
+                        </td>
+                        <td className="p-3 flex justify-end">
+                          <div
+                            onClick={() => viewTrainingPlan(plan._id)}
+                            className="bg-gradient-dark px-3 py-1 rounded-md text-white cursor-pointer w-14 text-center"
+                          >
+                            View
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
-        {plansLoading ? (
-          <Skeleton count={2} height={30} />
-        ) : (
-          <div className="overflow-x-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-w-2 scrolling-touch">
-            <table className="payment-table text-gray-400 border-separate space-y-3 text-xs w-full">
-              <thead className="bg-gradient-dark text-white">
-                <tr>
-                  <th className="p-3 text-left">#</th>
-                  <th className="p-3 text-left">Code</th>
-                  <th className="p-3 text-left">Name</th>
-                  <th className="p-3 text-left">Start Date</th>
-                  <th className="p-3 text-left">End Date</th>
-                  <th className="p-3 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {plansData?.map((plan, key) => {
-                  return (
-                    <tr className="bg-white lg:text-black" key={key + 1}>
-                      <td className="p-3">{key + 1}</td>
-                      <td className="p-3">{plan.planCode}</td>
-                      <td className="p-3">{plan.planName}</td>
-                      <td className="p-3">
-                        {dayjs(plan.startDate).format("YYYY/MM/DD")}
-                      </td>
-                      <td className="p-3">
-                        {dayjs(plan.endDate).format("YYYY/MM/DD")}
-                      </td>
-                      <td className="p-3 flex justify-end">
-                        <div
-                          onClick={() => viewTrainingPlan(plan._id)}
-                          className="bg-gradient-dark px-3 py-1 rounded-md text-white cursor-pointer w-14 text-center"
-                        >
-                          View
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
+      )}
+
       {/* Modal View */}
       {showModal ? (
         <>

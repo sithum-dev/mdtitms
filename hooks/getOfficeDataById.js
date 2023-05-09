@@ -16,7 +16,6 @@ const getOfficeDataById = (officeGet) => {
         url: "/api/offices/" + officeGet.officeid,
       })
         .then((res) => {
-          console.log(res.data.data);
           setOffice(res.data.data);
           setOfficeLoading(false);
         })

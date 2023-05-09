@@ -64,7 +64,6 @@ const EditUserDetails = () => {
   }, [userGet]);
 
   const setDataToFields = (data) => {
-    console.log(data);
     nicRef.current.value = data.nic;
     perFileNoRef.current.value = data.perFileNo;
     appDateRef.current.value = dayjs(data.appDate).format("YYYY-MM-DD");
@@ -135,8 +134,6 @@ const EditUserDetails = () => {
       currentState: currentStateRef.current.value,
       status: 1,
     };
-
-    console.log(data);
 
     await axios({
       method: "POST",

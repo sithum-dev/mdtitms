@@ -100,8 +100,6 @@ const AddOfficerModal = ({
       data: { data: data },
     })
       .then((res) => {
-        console.log(res.data);
-        // setDataRelaod(dataRelaod ? null : true);
         toast.success("New officer added successfully!", notificationsSettings);
       })
       .catch((e) => {

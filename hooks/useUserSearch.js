@@ -13,7 +13,6 @@ function useUserSearch(query, pageNumber, tags, dateFilter) {
 
   useEffect(() => {
     setUsers([]);
-    console.log(123);
   }, [query, tags, dateFilter]);
 
   useEffect(async () => {
